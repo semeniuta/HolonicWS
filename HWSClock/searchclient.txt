@@ -1,0 +1,7 @@
+EndpointReference [ address=urn:uuid:88f23450-6407-11e3-8031-080e91a5c719, referenceParameters=null ]
+[MY] Getting device
+[MY] Getting service reference
+[MY] Getting service
+[MY] Constructing request
+[MY] Invoking operation
+16:02:08

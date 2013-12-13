@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/HolonicWS"/>
+	<classpathentry kind="lib" path="/HolonicWS/jars/ws4d-java-v2.0.0-beta-8/ws4d-java-se-full-debug-with-security.jar"/>
+	<classpathentry kind="lib" path="/HolonicWS/jars/ws4d-java-v2.0.0-beta-8/ws4d-java-se-full-debug-without-security.jar"/>
+	<classpathentry kind="lib" path="/HolonicWS/jars/ws4d-java-v2.0.0-beta-8/ws4d-java-se-full-with-security.jar"/>
+	<classpathentry kind="lib" path="/HolonicWS/jars/ws4d-java-v2.0.0-beta-8/ws4d-java-se-full-without-security.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

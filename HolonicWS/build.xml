@@ -1,0 +1,42 @@
+<project name="HolonicWS_Build">
+	
+	<property name="dir.src" location="src" />
+	<property name="dir.jars" location="jars/ws4d-java-v2.0.0-beta-8" />
+	<property name="dir.buildroot" location="ant" />
+	<property name="dir.build" location="${dir.buildroot}/build" />
+	<property name="dir.distrib" location="${dir.buildroot}/distrib" />
+	
+	<property name="jarfiles.jmeds" value="ws4d-java-se-full-with-security.jar" />
+	
+	<property name="jar.file" value="myservice.jar" />
+	<!--<property name="jar.mainclass" value="holonicws.debug.App" />-->
+	
+	<target name="clean">
+		<delete dir="${dir.buildroot}" />
+	</target>
+	
+	<target name="makeDirs">
+		<mkdir dir="${dir.buildroot}" />
+		<mkdir dir="${dir.build}"/>
+		<mkdir dir="${dir.distrib}"/>	
+	</target>
+	
+	<target name="compile" depends="clean, makeDirs">
+		<javac destdir="${dir.build}">
+			<src path="${dir.src}" />
+			<classpath path="${dir.jars}/${jarfiles.jmeds}" />
+		</javac>
+	</target>
+	
+	<target name="createJAR" depends="compile">
+		<copy file="${dir.jars}/${jarfiles.jmeds}" todir="${dir.distrib}" />
+        <jar destfile="${dir.distrib}/${jar.file}" basedir="${dir.build}">
+            <manifest>
+                <!--<attribute name="Main-Class" value="${jar.mainclass}"/>-->
+            	<attribute name="Class-Path" value="${jarfiles.jmeds}"/>
+            </manifest>
+        </jar>
+	</target>
+	
+	
+</project>
