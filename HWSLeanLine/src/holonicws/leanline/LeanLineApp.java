@@ -7,6 +7,7 @@ import org.ws4d.java.eventing.EventSource;
 import org.ws4d.java.types.QName;
 
 import holonicws.HWSDevice;
+import holonicws.HWSParameter;
 import holonicws.HWSService;
 import holonicws.leanline.customerholon.CustomerHolon;
 import holonicws.leanline.customerholon.OrderEvent;
@@ -26,6 +27,9 @@ public class LeanLineApp {
 		
 		CustomerHolon customer = new CustomerHolon(iface_name);
 		LineHolon line = new LineHolon(iface_name);
+		
+//		HWSParameter p = new HWSParameter("age", 23);
+//		System.out.println(String.valueOf(p.getValue()));
 		
 	}
 	

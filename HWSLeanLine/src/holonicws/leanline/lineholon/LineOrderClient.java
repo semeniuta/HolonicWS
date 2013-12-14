@@ -1,12 +1,11 @@
 package holonicws.leanline.lineholon;
 
 import holonicws.HWSDevice;
-import holonicws.HWSService;
+import holonicws.HWSParameter;
+import holonicws.HWSSimpleCommunicator;
 import holonicws.leanline.cellholon.CellHolon;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 import org.ws4d.java.client.DefaultClient;
@@ -16,19 +15,16 @@ import org.ws4d.java.communication.CommunicationException;
 import org.ws4d.java.communication.DPWSCommunicationManager;
 import org.ws4d.java.communication.connection.ip.IPNetworkDetection;
 import org.ws4d.java.communication.protocol.http.HTTPBinding;
-import org.ws4d.java.dispatch.DefaultServiceReference;
 import org.ws4d.java.eventing.ClientSubscription;
 import org.ws4d.java.eventing.EventSource;
 import org.ws4d.java.eventing.EventingException;
 import org.ws4d.java.security.CredentialInfo;
 import org.ws4d.java.security.SecurityKey;
-import org.ws4d.java.service.Device;
 import org.ws4d.java.service.InvocationException;
 import org.ws4d.java.service.Operation;
 import org.ws4d.java.service.Service;
 import org.ws4d.java.service.parameter.ParameterValue;
 import org.ws4d.java.service.parameter.ParameterValueManagement;
-import org.ws4d.java.service.reference.DeviceReference;
 import org.ws4d.java.service.reference.ServiceReference;
 import org.ws4d.java.structures.DataStructure;
 import org.ws4d.java.types.QName;
@@ -99,12 +95,15 @@ public class LineOrderClient extends DefaultClient {
 		CellHolon lastCell = cells.get(cells.size() - 1); 
 		HWSDevice lastCellDevice =  lastCell.getDevice();
 		
+		// Locate and invoke the operation on the last cell
 		try {
-			Service manufService = lastCellDevice.getServiceReference(new URI("http://manufacturer.no/holonicws/ManufacturingService"), SecurityKey.EMPTY_KEY).getService();
-			Operation op = manufService.getOperation(null, "RequestProduction", null, null);
-			ParameterValue paramVal = op.createInputValue();
-			ParameterValueManagement.setString(paramVal, "request", String.valueOf(value));
-			ParameterValue response = op.invoke(paramVal, CredentialInfo.EMPTY_CREDENTIAL_INFO);
+			HWSSimpleCommunicator comm = new HWSSimpleCommunicator();
+			String serviceURI = "http://manufacturer.no/holonicws/ManufacturingService";
+			String opName = "RequestProduction";
+			Service manufService = comm.getService(lastCellDevice, serviceURI);
+			Operation op = comm.getOperation(manufService, opName);
+			ParameterValue response = comm.invokeOperation(op, new HWSParameter("request", value));
+
 			System.out.println(response);
 		} catch (CommunicationException e) {
 			e.printStackTrace();
