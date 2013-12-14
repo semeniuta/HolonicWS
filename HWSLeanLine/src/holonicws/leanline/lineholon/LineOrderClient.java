@@ -1,8 +1,13 @@
 package holonicws.leanline.lineholon;
 
+import holonicws.HWSDevice;
+import holonicws.HWSService;
+import holonicws.leanline.cellholon.CellHolon;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import org.ws4d.java.client.DefaultClient;
 import org.ws4d.java.client.SearchCallback;
@@ -35,14 +40,17 @@ public class LineOrderClient extends DefaultClient {
 	
 	private QName eventPortType = new QName("Events", "http://customer.com/holonicws");
 	private ClientSubscription notificationSub = null;
+	private LineHolon line;
 	
-	public LineOrderClient() {
+	public LineOrderClient(LineHolon line) {
 		super();
 		
 		SearchParameter search = new SearchParameter();
 		search.setServiceTypes(new QNameSet(eventPortType));
 		SearchCallback callback = this; 
 		SearchManager.searchService(search, callback);
+		
+		this.line = line;
 		
 		System.out.println("Client created");
 	}
@@ -81,8 +89,29 @@ public class LineOrderClient extends DefaultClient {
 	public ParameterValue eventReceived(ClientSubscription subscription,
 			URI actionURI, ParameterValue parameterValue) {
 		
-		String eventText = ParameterValueManagement.getString(parameterValue, "order");
-		System.out.println("Notification event received: " + eventText);
+		// Get parameter value from the event
+		String valueText = ParameterValueManagement.getString(parameterValue, "order");
+		System.out.println("Notification event received: " + valueText);
+		int value = Integer.parseInt(valueText);
+		
+		// Get the reference to the last cell (HWSDevice object)
+		List<CellHolon> cells = line.getCells();
+		CellHolon lastCell = cells.get(cells.size() - 1); 
+		HWSDevice lastCellDevice =  lastCell.getDevice();
+		
+		try {
+			Service manufService = lastCellDevice.getServiceReference(new URI("http://manufacturer.no/holonicws/ManufacturingService"), SecurityKey.EMPTY_KEY).getService();
+			Operation op = manufService.getOperation(null, "RequestProduction", null, null);
+			ParameterValue paramVal = op.createInputValue();
+			ParameterValueManagement.setString(paramVal, "request", String.valueOf(value));
+			ParameterValue response = op.invoke(paramVal, CredentialInfo.EMPTY_CREDENTIAL_INFO);
+			System.out.println(response);
+		} catch (CommunicationException e) {
+			e.printStackTrace();
+		} catch (InvocationException e) {
+			e.printStackTrace();
+		}
+		 
 		
 		return super.eventReceived(subscription, actionURI, parameterValue);
 	}

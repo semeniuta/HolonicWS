@@ -6,6 +6,8 @@ import org.ws4d.java.communication.connection.ip.IPNetworkDetection;
 import org.ws4d.java.communication.connection.ip.NetworkInterface;
 import org.ws4d.java.communication.structures.IPDiscoveryBinding;
 import org.ws4d.java.service.DefaultDevice;
+import org.ws4d.java.service.Device;
+import org.ws4d.java.service.Service;
 import org.ws4d.java.types.QName;
 import org.ws4d.java.types.QNameSet;
 
@@ -39,6 +41,10 @@ public class HWSDevice extends DefaultDevice {
 	public void setInterface(String iface_name) {
 		IPDiscoveryBinding binding = createBinding(iface_name);
 		this.addBinding(binding);
+	}
+	
+	public Service locateService(String serviceURI) {
+		return null;
 	}
 	
 	/**
