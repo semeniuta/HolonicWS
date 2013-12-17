@@ -12,7 +12,7 @@ public class OrderEventService extends HWSService {
 	public OrderEventService(HWSDevice device) {
 		super(NAME, device);
 		
-		OrderEvent orderEvent = new OrderEvent(NAME, new QName("Events", this.getNamespace()), this);
+		OrderEventSource orderEvent = new OrderEventSource(NAME, new QName("Events", this.getNamespace()), this);
 		this.addEventSource(orderEvent);
 		
 	}

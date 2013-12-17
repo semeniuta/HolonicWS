@@ -29,7 +29,7 @@ public class CustomerHolon {
 		// Extract event source from the event service
 		// and start the event provider
 		EventSource event = service.getEventSource(new QName("Events", service.getNamespace()), "OrderEvent", null, "OrderEvent");
-		eventProvider = new OrderEventProvider((OrderEvent) event);
+		eventProvider = new OrderEventProvider((OrderEventSource) event);
 		eventProvider.start();
 		
 		// Start the device

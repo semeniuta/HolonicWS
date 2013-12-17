@@ -10,7 +10,7 @@ import holonicws.HWSDevice;
 import holonicws.HWSParameter;
 import holonicws.HWSService;
 import holonicws.leanline.customerholon.CustomerHolon;
-import holonicws.leanline.customerholon.OrderEvent;
+import holonicws.leanline.customerholon.OrderEventSource;
 import holonicws.leanline.customerholon.OrderEventService;
 import holonicws.leanline.customerholon.OrderEventProvider;
 import holonicws.leanline.lineholon.LineHolon;

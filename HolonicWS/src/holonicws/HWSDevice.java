@@ -1,18 +1,13 @@
 package holonicws;
 
-import org.ws4d.java.communication.CommunicationException;
 import org.ws4d.java.communication.DPWSCommunicationManager;
 import org.ws4d.java.communication.connection.ip.IPDiscoveryDomain;
 import org.ws4d.java.communication.connection.ip.IPNetworkDetection;
 import org.ws4d.java.communication.connection.ip.NetworkInterface;
 import org.ws4d.java.communication.structures.IPDiscoveryBinding;
-import org.ws4d.java.security.SecurityKey;
 import org.ws4d.java.service.DefaultDevice;
-import org.ws4d.java.service.Device;
-import org.ws4d.java.service.Service;
 import org.ws4d.java.types.QName;
 import org.ws4d.java.types.QNameSet;
-import org.ws4d.java.types.URI;
 
 public class HWSDevice extends DefaultDevice {
 	

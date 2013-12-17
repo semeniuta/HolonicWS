@@ -3,10 +3,10 @@ package holonicws.leanline.customerholon;
 public class OrderEventProvider extends Thread {
 
 	private int interval = 5;
-	private OrderEvent event;
+	private OrderEventSource event;
 	private int fireCounter = 0;
 	
-	public OrderEventProvider(OrderEvent event) {
+	public OrderEventProvider(OrderEventSource event) {
 		this.event = event;
 	}
 	
